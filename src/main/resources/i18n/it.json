@@ -1,0 +1,20 @@
+{
+    "moduleDisabled": "⛔ Scusa, %s, ma il `%s` modulo è disabilitato in questo server, allora Lei non ne può fare! ⛔",
+    "missingPermission": "⛔ Scusa, %s, ma Lei non ne può fare perché Lei non ha autorizzazione! ⛔",
+    "botMissingPermission": "Oops! Non posso funzionare perché non sono stato impostato correttamente. Ho bisogno delle `%0` autorizzazione per ne fare. Si prega di contattare un amministratore di questo server.",
+    "exceptionExecutingCommand": "Oops! Qualcosa è sbagliata. Si prega di fare ancora più tardi, e se la problema rimanere, Lei può aderire il discord di Aiuto a https://discord.gg/3SqMvgF",
+
+    "setColorMissingColor": "%s, Lei a bisogno di dare un colore. Lei può ricevere un cifrario di colore da https://www.hexcolortool.com/ - Lei vuole il cifrario, che inizia con #",
+    "setColorBadColor": "%s, non so quale colore, che Lei vuole con `%s`. Lei può ricevere un cifrario di colore da https://www.hexcolortool.com/ - Lei vuole il cifrario, che inizia con #",
+    "setColorBadUser": "%s, non so che cosa, ho bisogno di modificare, perché non so che è `%s`. Se Lei vuole modificare il suo colore, Lei non a bisogno di dare un utente, solo un colore.",
+    "setColorSuccess": "Successo! Il utente %s ha ora il colore `%s`",
+
+    "clearColorBadUser": "%s, non posso rimuovere il colore di `%s` perché non so che è.",
+    "clearColorSuccess": "Successo! Rimosso il ruolo di colore da %s",
+
+    "setPrefixMissingPrefix": "%s, Lei a bisogno di specificare il prefisso, che Lei vuole utilizzare.",
+    "setPrefixSuccess": "%s ha aggiornato il prefisso per questo server da %s a %s",
+
+    "clearCommandSyntax": "%s, quando Lei sta utilizzando il comando di sbarazzare discorso, Lei a bisogno di specificare sia un utente per sbarazzare discorso, che un numero di messaggi per rimuovere, che niente, allora %d messaggi ultimi sarà rimossi.",
+    "clearCommandComplete": "%s, ho rimisso %d messaggi da questo channel."
+}
