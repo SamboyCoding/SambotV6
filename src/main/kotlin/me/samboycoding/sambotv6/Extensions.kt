@@ -5,6 +5,7 @@ import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.VoiceChannel
 
 
 fun Message.getCommandData(config: GuildConfiguration): CommandData {
@@ -23,3 +24,7 @@ fun Member.isModerator(): Boolean = hasAnyPermission(
     Permission.ADMINISTRATOR,
     Permission.MANAGE_SERVER
 )
+
+fun VoiceChannel.join() {
+    guild.audioManager.openAudioConnection(this)
+}

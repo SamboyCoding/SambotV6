@@ -2,10 +2,7 @@ package me.samboycoding.sambotv6
 
 import me.liuwj.ktorm.dsl.eq
 import me.liuwj.ktorm.entity.findOne
-import me.samboycoding.sambotv6.commands.ClearColorCommand
-import me.samboycoding.sambotv6.commands.ClearCommand
-import me.samboycoding.sambotv6.commands.SetColorCommand
-import me.samboycoding.sambotv6.commands.SetPrefixCommand
+import me.samboycoding.sambotv6.commands.*
 import me.samboycoding.sambotv6.orm.tables.GuildConfigurations
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 
@@ -14,7 +11,9 @@ object CommandHandler {
         SetColorCommand(),
         SetPrefixCommand(),
         ClearColorCommand(),
-        ClearCommand()
+        ClearCommand(),
+        JoinCommand(),
+        LeaveCommand()
     )
 
     fun handleEvent(event: MessageReceivedEvent) {
