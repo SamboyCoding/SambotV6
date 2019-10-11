@@ -16,13 +16,15 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.lang.System.getenv
+import java.util.*
+import kotlin.collections.HashMap
 
 class SambotV6 {
     lateinit var token: String
     lateinit var jda: JDA
     lateinit var db: Database
 
-    val locales: HashMap<String, HashMap<String, String>> = HashMap()
+    val locales: TreeMap<String, HashMap<String, String>> = TreeMap()
 
     fun init(token: String) {
         this.token = token
@@ -75,26 +77,22 @@ class SambotV6 {
                 locales[localeName] = map
                 botLogger.info("Loaded ${map.size} translations for language $localeName")
             }
+        }
 
-            val en = locales["en"]!!
-            for (kvp in locales) {
-                if(kvp.key == "en") continue
+        val en = locales["en"]!!
+        for (kvp in locales) {
+            if(kvp.key == "en") continue
 
-                val locale = kvp.value
+            val locale = kvp.value
 
-                val missingKeys = arrayListOf<String>()
-                for (string in en) {
-                    if(!locale.containsKey(string.key))
-                        missingKeys.add(string.key)
-                }
+            val missingKeys = en.keys.filter { !locale.containsKey(it) }
 
-                if(missingKeys.isNotEmpty()) {
-                    botLogger.warn("Locale ${kvp.key} is missing ${missingKeys.size} translations:")
+            if(missingKeys.isNotEmpty()) {
+                botLogger.warn("Locale ${kvp.key} is missing ${missingKeys.size} translations:")
 
-                    missingKeys.forEach { botLogger.warn("    -$it")}
+                missingKeys.forEach { missingKey -> botLogger.warn("    -$missingKey")}
 
-                    botLogger.warn("")
-                }
+                botLogger.warn("")
             }
         }
 

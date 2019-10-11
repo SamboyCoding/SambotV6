@@ -1,4 +1,6 @@
 {
+    "name": "Español (España)",
+    "englishName": "Spanish (Spain)",
     "moduleDisabled": "⛔ Lo siento, %s, pero el módulo `%s` está desactivado en este servidor, ¡entonces no puedes hacer esta acción! ⛔",
     "missingPermission": "⛔ Lo siento, %s, ¡pero no tienes permiso para hacerlo! ⛔"
 }

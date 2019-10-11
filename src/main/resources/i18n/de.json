@@ -1,4 +1,7 @@
 {
+    "name": "Deutsche",
+    "englishName": "German",
+
     "moduleDisabled": "⛔ Entschuldigung, %s, aber der `%s` Modul ist auf diesem Server deaktiviert, also können Sie das nicht tun! ⛔",
     "missingPermission": "⛔ Entschuldigung, %s, aber Sie haben keine Erlaubnis dazu! ⛔",
     "botMissingPermission": "Hoppla! Es scheint, dass ich falsch konfiguiert worden bin. Ich brauche die `%s` Berechtigung, um das zu tun. Bitte kontaktieren Sie einen Administrator dieses Servers.",

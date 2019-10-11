@@ -1,14 +1,17 @@
 package me.samboycoding.sambotv6.commands
 
+import me.liuwj.ktorm.dsl.eq
+import me.liuwj.ktorm.entity.findOne
 import me.samboycoding.sambotv6.SambotV6
 import me.samboycoding.sambotv6.getCommandData
 import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
+import me.samboycoding.sambotv6.orm.tables.ChannelLocales
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.*
 
 abstract class BaseCommand {
     private lateinit var context: CommandData
-    private lateinit var config: GuildConfiguration
+    lateinit var config: GuildConfiguration
 
     protected open fun getCommandWord(): String {
         throw NotImplementedError("Command must either override getCommandWord or override getCommandWords to not call getCommandWord.")
@@ -18,7 +21,13 @@ abstract class BaseCommand {
         return arrayListOf(getCommandWord())
     }
 
-    protected abstract fun execute(msg: Message, author: Member, guild: Guild, channel: TextChannel, config: GuildConfiguration)
+    protected abstract fun execute(
+        msg: Message,
+        author: Member,
+        guild: Guild,
+        channel: TextChannel,
+        config: GuildConfiguration
+    )
 
     fun doExecute(msg: Message, author: Member, guild: Guild, channel: TextChannel, config: GuildConfiguration) {
         synchronized(this) {
@@ -29,8 +38,12 @@ abstract class BaseCommand {
     }
 
     fun getString(key: String): String {
-        val locale = SambotV6.instance.locales[config.locale] ?: SambotV6.instance.locales["en"]!!
-        return locale[key] ?: throw NotImplementedError("Could not find string $key in default or fallback locale!")
+        //Channel override if exists else guild config locale
+        val localeId = ChannelLocales.findOne { it.id eq context.message.channel.id }?.locale ?: config.locale
+
+        return SambotV6.instance.locales[localeId]?.get(key)
+            ?: SambotV6.instance.locales["en"]!![key]
+            ?: throw NotImplementedError("Could not find string $key in default or fallback locale!")
     }
 
     protected fun getString(key: String, vararg objects: Any): String {
@@ -47,8 +60,8 @@ abstract class BaseCommand {
         channel.doSend(getString("missingPermission", author.asMention))
     }
 
-    protected fun failIfBotMissingPerm(perm :Permission): Boolean {
-        if(!config.guild!!.selfMember.hasPermission(perm)) {
+    protected fun failIfBotMissingPerm(perm: Permission): Boolean {
+        if (!config.guild!!.selfMember.hasPermission(perm)) {
             context.message.sendMisconfigurationMessage(perm.name)
             return false
         }
@@ -61,7 +74,7 @@ abstract class BaseCommand {
         channel.doSend(getString("botMissingPermission", missing))
     }
 
-            protected fun MessageChannel.doSend(message: String) {
+    protected fun MessageChannel.doSend(message: String) {
         sendMessage(message).queue()
     }
 }

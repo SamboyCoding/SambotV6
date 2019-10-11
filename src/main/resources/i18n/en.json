@@ -1,21 +1,28 @@
 {
-    "moduleDisabled": "⛔ Sorry, %s, but the `%s` module is disabled in this server, so you can't do that! ⛔",
-    "missingPermission": "⛔ Sorry, %s, but you don't have permission to do that! ⛔",
-    "botMissingPermission": "Uh oh! Looks like I've not been set up correctly. I require the `%s` permission to do that. Please contact an admin of this server.",
+    "name": "English (US)",
+    "englishName": "English (US)",
+
+    "moduleDisabled": "⛔ Sorry, %1$s, but the `%2$s` module is disabled in this server, so you can't do that! ⛔",
+    "missingPermission": "⛔ Sorry, %1$s, but you don't have permission to do that! ⛔",
+    "botMissingPermission": "Uh oh! Looks like I've not been set up correctly. I require the `%1$s` permission to do that. Please contact an admin of this server.",
     "exceptionExecutingCommand": "Whoops! Something's gone funny. Please try again in a bit, and if the issue persists join the help discord at https://discord.gg/3SqMvgF",
 
-    "setColorMissingColor": "%s, you need to specify a colour. You can get a colour code from https://www.hexcolortool.com/ - you want the code beginning with a #",
-    "setColorBadColor": "%s, I don't know what color you mean by `%s`. You can get a colour code from https://www.hexcolortool.com/ - you want the code beginning with a #",
-    "setColorBadUser": "%s, I don't know who to modify, because I don't know who `%s` refers to. If you just want to change your own color, you don't need to specify a user, just a color.",
-    "setColorSuccess": "Success! The user %s now has the color `%s`",
+    "setColorMissingColor": "%1$s, you need to specify a colour. You can get a colour code from https://www.hexcolortool.com/ - you want the code beginning with a #",
+    "setColorBadColor": "%1$s, I don't know what color you mean by `%2$s`. You can get a colour code from https://www.hexcolortool.com/ - you want the code beginning with a #",
+    "setColorBadUser": "%1$s, I don't know who to modify, because I don't know who `%2$s` refers to. If you just want to change your own color, you don't need to specify a user, just a color.",
+    "setColorSuccess": "Success! The user %1$s now has the color `%2$s`",
 
-    "clearColorBadUser": "%s, I can't clear the color of `%s` because I don't know who that is.",
-    "clearColorSuccess": "Success! Removed the color role from %s",
-    "clearColorNoColors": "I can't clear the color role from %s as they don't have one!",
+    "clearColorBadUser": "%1$s, I can't clear the color of `%2$s` because I don't know who that is.",
+    "clearColorSuccess": "Success! Removed the color role from %1$s",
+    "clearColorNoColors": "I can't clear the color role from %1$s as they don't have one!",
 
-    "setPrefixMissingPrefix": "%s, you need to specify the prefix you want to use.",
-    "setPrefixSuccess": "%s updated the prefix for this server from %s to %s",
+    "setPrefixMissingPrefix": "%1$s, you need to specify the prefix you want to use.",
+    "setPrefixSuccess": "%1$s updated the prefix for this server from %2$s to %3$s",
 
-    "clearCommandSyntax": "%s, when using the clear chat command, you should specify either a user to clear messages for, a number of messages to delete, or nothing, in which case the last %d messages will be deleted.",
-    "clearCommandComplete": "%s, I've deleted %d messages from this channel."
+    "clearCommandSyntax": "%1$s, when using the clear chat command, you should specify either a user to clear messages for, a number of messages to delete, or nothing, in which case the last %2$d messages will be deleted.",
+    "clearCommandComplete": "%1$s, I've deleted %2$d messages from this channel.",
+
+    "setLocaleMissingLocale": "%1$s, you need to specify the language you want to set the server to. Available languages are: ```%2$s```",
+    "setLocaleUnknownLocale": "%1$s, I don't know which language you mean by `%2$s`",
+    "languageUpdated": "%1$s updated the server language from `%2$s` to `%3$s`"
 }

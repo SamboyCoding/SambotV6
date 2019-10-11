@@ -13,7 +13,8 @@ object CommandHandler {
         ClearColorCommand(),
         ClearCommand(),
         JoinCommand(),
-        LeaveCommand()
+        LeaveCommand(),
+        ServerLangCommand()
     )
 
     fun handleEvent(event: MessageReceivedEvent) {

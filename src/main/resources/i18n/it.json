@@ -1,4 +1,7 @@
 {
+    "name": "Italiano",
+    "englishName": "Italian",
+
     "moduleDisabled": "⛔ Scusa, %s, ma il `%s` modulo è disabilitato in questo server, allora Lei non ne può fare! ⛔",
     "missingPermission": "⛔ Scusa, %s, ma Lei non ne può fare perché Lei non ha autorizzazione! ⛔",
     "botMissingPermission": "Oops! Non posso funzionare perché non sono stato impostato correttamente. Ho bisogno delle `%0` autorizzazione per ne fare. Si prega di contattare un amministratore di questo server.",
