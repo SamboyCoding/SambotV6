@@ -14,7 +14,7 @@ class SetColorCommand : BaseCommand() {
     override fun execute(msg: Message, author: Member, guild: Guild, channel: TextChannel, config: GuildConfiguration) {
         //Check that the feature's enabled
         if (!config.colorsEnabled)
-            return msg.sendModuleDisabledMessage("custom colors")
+            return msg.sendModuleDisabledMessage(getString("moduleNameCustomColors"))
 
         //Check we can manage roles
         if (!failIfBotMissingPerm(Permission.MANAGE_ROLES))

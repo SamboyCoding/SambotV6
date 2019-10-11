@@ -33,13 +33,13 @@ class SambotV6 {
 
         manager.on<ReadyEvent>()
             .next()
-            .subscribe(this::onReady)
+            .subscribe { this.onReady() }
 
         manager.on<MessageReceivedEvent>()
             .subscribe(CommandHandler::handleEvent)
 
         manager.on<ShutdownEvent>()
-            .subscribe {botLogger.info("Shutting down...")}
+            .subscribe { botLogger.info("Shutting down...") }
 
         botLogger.info("Logging in to discord...")
         jda = JDABuilder(token)
@@ -56,7 +56,7 @@ class SambotV6 {
         dbLogger.info("Connected!")
     }
 
-    private fun onReady(event: ReadyEvent) {
+    private fun onReady() {
         botLogger.info("Ready!")
 
         //Load locales
@@ -81,16 +81,16 @@ class SambotV6 {
 
         val en = locales["en"]!!
         for (kvp in locales) {
-            if(kvp.key == "en") continue
+            if (kvp.key == "en") continue
 
             val locale = kvp.value
 
             val missingKeys = en.keys.filter { !locale.containsKey(it) }
 
-            if(missingKeys.isNotEmpty()) {
+            if (missingKeys.isNotEmpty()) {
                 botLogger.warn("Locale ${kvp.key} is missing ${missingKeys.size} translations:")
 
-                missingKeys.forEach { missingKey -> botLogger.warn("    -$missingKey")}
+                missingKeys.forEach { missingKey -> botLogger.warn("    -$missingKey") }
 
                 botLogger.warn("")
             }

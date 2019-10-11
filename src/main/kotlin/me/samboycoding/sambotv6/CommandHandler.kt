@@ -14,7 +14,8 @@ object CommandHandler {
         ClearCommand(),
         JoinCommand(),
         LeaveCommand(),
-        ServerLangCommand()
+        ServerLangCommand(),
+        GetRoleCommand()
     )
 
     fun handleEvent(event: MessageReceivedEvent) {

@@ -7,6 +7,9 @@
     "botMissingPermission": "Uh oh! Looks like I've not been set up correctly. I require the `%1$s` permission to do that. Please contact an admin of this server.",
     "exceptionExecutingCommand": "Whoops! Something's gone funny. Please try again in a bit, and if the issue persists join the help discord at https://discord.gg/3SqMvgF",
 
+    "moduleNameCustomColors": "custom colors",
+    "moduleNameCustomRoles": "custom roles",
+
     "setColorMissingColor": "%1$s, you need to specify a colour. You can get a colour code from https://www.hexcolortool.com/ - you want the code beginning with a #",
     "setColorBadColor": "%1$s, I don't know what color you mean by `%2$s`. You can get a colour code from https://www.hexcolortool.com/ - you want the code beginning with a #",
     "setColorBadUser": "%1$s, I don't know who to modify, because I don't know who `%2$s` refers to. If you just want to change your own color, you don't need to specify a user, just a color.",
@@ -24,5 +27,11 @@
 
     "setLocaleMissingLocale": "%1$s, you need to specify the language you want to set the server to. Available languages are: ```%2$s```",
     "setLocaleUnknownLocale": "%1$s, I don't know which language you mean by `%2$s`",
-    "languageUpdated": "%1$s updated the server language from `%2$s` to `%3$s`"
+    "languageUpdated": "%1$s updated the server language from `%2$s` to `%3$s`",
+
+    "getRoleMissingRoleName": "%1$s, you need to specify which role you want to get/lose.",
+    "getRoleUnknownRole": "%1$s, I don't know which role you mean by `%2$s`",
+    "getRoleRoleDisappeared": "%1$s, the role associated with the name `%2$s` has been deleted, so I can't give you it. Ask an admin or moderator of this server to fix this.",
+    "getRoleAdded": "%1$s, you now have the role `%2$s`",
+    "getRoleRemoved": "%1$s, you **no longer** have the role `%2$s`"
 }
