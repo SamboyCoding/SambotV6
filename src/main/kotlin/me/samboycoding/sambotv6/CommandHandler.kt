@@ -8,14 +8,22 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 
 object CommandHandler {
     val commands = arrayListOf(
-        SetColorCommand(),
+        //Prefix
         SetPrefixCommand(),
+        //Color
+        SetColorCommand(),
         ClearColorCommand(),
+        //Util
         ClearCommand(),
+        //Music
         JoinCommand(),
         LeaveCommand(),
+        //Lang
         ServerLangCommand(),
-        GetRoleCommand()
+        ChannelLangCommand(),
+        //Custom Roles
+        GetRoleCommand(),
+        AddCustomRoleCommand()
     )
 
     fun handleEvent(event: MessageReceivedEvent) {

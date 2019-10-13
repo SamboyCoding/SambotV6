@@ -5,10 +5,13 @@ import me.liuwj.ktorm.entity.Entity
 interface CustomRole : Entity<CustomRole> {
     companion object : Entity.Factory<CustomRole>()
 
-    val slug: String
-    val roleId: String
-    val guildConfig: GuildConfiguration
+    var tag: String
+    var roleId: String
+    var guildConfig: GuildConfiguration
 
-    val role
+    var role
         get() = guildConfig.guild?.getRoleById(roleId)
+        set(value) {
+            roleId = value?.id ?: ""
+        }
 }

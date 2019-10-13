@@ -1,15 +1,18 @@
 package me.samboycoding.sambotv6.commands
 
+import me.liuwj.ktorm.dsl.eq
+import me.liuwj.ktorm.entity.findOne
 import me.samboycoding.sambotv6.SambotV6
 import me.samboycoding.sambotv6.getCommandData
 import me.samboycoding.sambotv6.isModerator
 import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
+import me.samboycoding.sambotv6.orm.tables.ChannelLocales
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
 
-class ServerLangCommand : BaseCommand() {
+class ChannelLangCommand : BaseCommand() {
     override fun execute(msg: Message, author: Member, guild: Guild, channel: TextChannel, config: GuildConfiguration) {
         //They have to be a mod
         if (!author.isModerator())
@@ -17,13 +20,15 @@ class ServerLangCommand : BaseCommand() {
 
         val data = msg.getCommandData(config)
 
-        val currentLocale = config.locale
+        val existingOverride = ChannelLocales.findOne { it.id eq channel.id }
+
+        val currentLocale = existingOverride?.locale ?: config.locale
 
         //We need a locale
         if (data.argsCount < 1) {
             val locales =
                 SambotV6.instance.locales.keys.joinToString("\n") { "${if (currentLocale == it) '*' else ' '}   $it: ${SambotV6.instance.locales[it]!!["name"]} (${SambotV6.instance.locales[it]!!["englishName"]})" }
-            return channel.doSend(getString("setLocaleMissingLocale", author.asMention, locales))
+            return channel.doSend(getString("setCLocaleMissingLocale", author.asMention, locales))
         }
 
         val locale = data.getArg(0)!!.toLowerCase()
@@ -31,19 +36,23 @@ class ServerLangCommand : BaseCommand() {
         if (!SambotV6.instance.locales.containsKey(locale))
             return channel.doSend(getString("setLocaleUnknownLocale", author.asMention, locale))
 
-        //Set server-wide language
+        //Are we setting back to server-wide?
+        if(existingOverride != null && locale == config.locale) {
+            //If so, just delete the override
+            existingOverride.delete()
+        } else {
+            //Set channel override language
+            val override = existingOverride
+                ?: ChannelLocales.createForChannel(channel, locale)
 
-        config.locale = locale
+            override.locale = locale
+            override.flushChanges()
+        }
 
-        config.flushChanges()
-
-        //update the config so we use the correct lang for the string below
-        super.config = config
-
-        channel.doSend(getString("languageUpdated", author.asMention, currentLocale, locale))
+        channel.doSend(getString("cLanguageUpdated", author.asMention, currentLocale, locale))
     }
 
     override fun getCommandWords(): List<String> {
-        return listOf("lang", "serverlang", "locale", "serverlocale")
+        return listOf("channellang", "clang", "channellocale", "clocale")
     }
 }

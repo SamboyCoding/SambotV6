@@ -27,11 +27,18 @@
 
     "setLocaleMissingLocale": "%1$s, you need to specify the language you want to set the server to. Available languages are: ```%2$s```",
     "setLocaleUnknownLocale": "%1$s, I don't know which language you mean by `%2$s`",
-    "languageUpdated": "%1$s updated the server language from `%2$s` to `%3$s`",
+    "languageUpdated": "%1$s changed the server language from `%2$s` to `%3$s`",
+
+    "setCLocaleMissingLocale": "%1$s, you need to specify the language you want to set this channel to. Available languages are: ```%2$s```",
+    "cLanguageUpdated": "%1$s changed the language I'll use in this channel from `%2$s` to `%3$s`",
 
     "getRoleMissingRoleName": "%1$s, you need to specify which role you want to get/lose.",
     "getRoleUnknownRole": "%1$s, I don't know which role you mean by `%2$s`",
     "getRoleRoleDisappeared": "%1$s, the role associated with the name `%2$s` has been deleted, so I can't give you it. Ask an admin or moderator of this server to fix this.",
     "getRoleAdded": "%1$s, you now have the role `%2$s`",
-    "getRoleRemoved": "%1$s, you **no longer** have the role `%2$s`"
+    "getRoleRemoved": "%1$s, you **no longer** have the role `%2$s`",
+
+    "addCustomRoleMissingArgs": "%1$s, in order to add a custom role you need to provide a tag (which can't contain spaces), and either a role (@mention, id, or name) if you want to use an existing one, or a name (which CAN contain spaces) to make a new one.",
+    "addCustomRoleTagTaken": "%1$s, the tag `%2$s` is taken, so you can't create another role using that tag.",
+    "addCustomRoleSuccess": "%1$s, your custom role has been created and assigned to the role `%2$s`. Now users can get the role by running the command `%3$srole %4$s`."
 }
