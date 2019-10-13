@@ -30,15 +30,19 @@ class AddCustomRoleCommand : BaseCommand() {
         val data = msg.getCommandData(config)
 
         //Need at least a tag and a name
-        if(data.argsCount < 2)
+        if(data.argsCount < 2) {
+            msg.delete().submit()
             return channel.doSend(getString("addCustomRoleMissingArgs", author.asMention))
+        }
 
         //Get the tag (can't have spaces [that's why / because] it's first)
         val tag = data.getArg(0)!!
 
         //Check the tag isn't taken
-        if(CustomRoles.findOne { (it.guild eq guild.id) and (it.roleId eq tag) } != null)
+        if(CustomRoles.findOne { (it.guild eq guild.id) and (it.roleId eq tag) } != null) {
+            msg.delete().submit()
             return channel.doSend(getString("addCustomRoleTagTaken", author.asMention, tag))
+        }
 
         //Check to see if they've @'d a role to use
         var role = data.getRoleArg(1, true)
@@ -58,6 +62,7 @@ class AddCustomRoleCommand : BaseCommand() {
         CustomRoles.createForRole(role!!, tag)
 
         //Feedback to user
+        msg.delete().submit()
         channel.doSend(getString("addCustomRoleSuccess", author.asMention, role.name, config.prefix, tag))
     }
 

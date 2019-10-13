@@ -23,23 +23,26 @@ class ServerLangCommand : BaseCommand() {
         if (data.argsCount < 1) {
             val locales =
                 SambotV6.instance.locales.keys.joinToString("\n") { "${if (currentLocale == it) '*' else ' '}   $it: ${SambotV6.instance.locales[it]!!["name"]} (${SambotV6.instance.locales[it]!!["englishName"]})" }
+
+            msg.delete().submit()
             return channel.doSend(getString("setLocaleMissingLocale", author.asMention, locales))
         }
 
         val locale = data.getArg(0)!!.toLowerCase()
 
-        if (!SambotV6.instance.locales.containsKey(locale))
+        if (!SambotV6.instance.locales.containsKey(locale)) {
+            msg.delete().submit()
             return channel.doSend(getString("setLocaleUnknownLocale", author.asMention, locale))
+        }
 
         //Set server-wide language
-
         config.locale = locale
-
         config.flushChanges()
 
         //update the config so we use the correct lang for the string below
         super.config = config
 
+        msg.delete().submit()
         channel.doSend(getString("languageUpdated", author.asMention, currentLocale, locale))
     }
 

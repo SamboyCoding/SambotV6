@@ -28,13 +28,16 @@ class ChannelLangCommand : BaseCommand() {
         if (data.argsCount < 1) {
             val locales =
                 SambotV6.instance.locales.keys.joinToString("\n") { "${if (currentLocale == it) '*' else ' '}   $it: ${SambotV6.instance.locales[it]!!["name"]} (${SambotV6.instance.locales[it]!!["englishName"]})" }
+            msg.delete().submit()
             return channel.doSend(getString("setCLocaleMissingLocale", author.asMention, locales))
         }
 
         val locale = data.getArg(0)!!.toLowerCase()
 
-        if (!SambotV6.instance.locales.containsKey(locale))
+        if (!SambotV6.instance.locales.containsKey(locale)) {
+            msg.delete().submit()
             return channel.doSend(getString("setLocaleUnknownLocale", author.asMention, locale))
+        }
 
         //Are we setting back to server-wide?
         if(existingOverride != null && locale == config.locale) {
@@ -49,6 +52,7 @@ class ChannelLangCommand : BaseCommand() {
             override.flushChanges()
         }
 
+        msg.delete().submit()
         channel.doSend(getString("cLanguageUpdated", author.asMention, currentLocale, locale))
     }
 

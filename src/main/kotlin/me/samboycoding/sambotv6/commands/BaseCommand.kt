@@ -52,6 +52,7 @@ abstract class BaseCommand {
     }
 
     protected fun Message.sendModuleDisabledMessage(module: String) {
+        delete().submit()
         channel.doSend(getString("moduleDisabled", author.asMention, module))
 //        channel.sendMessage("⛔ Sorry, ${author.asMention}, but the `$module` module is disabled in this server, so you can't do that! ⛔")
     }
