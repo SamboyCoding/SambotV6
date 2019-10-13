@@ -1,9 +1,37 @@
 {
-    "name": "Deutsche",
+    "name": "Deutsch",
     "englishName": "German",
 
-    "moduleDisabled": "⛔ Entschuldigung, %s, aber der `%s` Modul ist auf diesem Server deaktiviert, also können Sie das nicht tun! ⛔",
-    "missingPermission": "⛔ Entschuldigung, %s, aber Sie haben keine Erlaubnis dazu! ⛔",
-    "botMissingPermission": "Hoppla! Es scheint, dass ich falsch konfiguiert worden bin. Ich brauche die `%s` Berechtigung, um das zu tun. Bitte kontaktieren Sie einen Administrator dieses Servers.",
-    "exceptionExecutingCommand":"Hoppla! Etwas ist schiefgelaufen. Versuchen Sie es später noch mal, und bei längerer Andauer des Problems, treten Sie für Hilfe unserem Server unter https://discord.gg/3SqMvgF bei."
+    "moduleDisabled": "⛔ Entschuldigung, %1$s, aber der `%2$s` Modul ist auf diesem Server deaktiviert, also können Sie das nicht tun! ⛔",
+    "missingPermission": "⛔ Entschuldigung, %1$s, aber Sie haben keine Erlaubnis, das zu tun! ⛔",
+    "botMissingPermission": "Hoppla! Es scheint, dass ich falsch konfiguiert worden bin. Ich brauche die `%1$s` Berechtigung, um das zu tun. Bitte kontaktieren Sie einen Administrator dieses Servers.",
+    "exceptionExecutingCommand": "Hoppla! Etwas ist schiefgelaufen. Versuchen Sie es später noch mal, und wenn das Problem weiterhin besteht, treten Sie für Hilfe unserem Server unter https://discord.gg/3SqMvgF bei.",
+
+    "moduleNameCustomColors": "benutzerdefinierte Farben",
+    "moduleNameCustomRoles": "benutzerdefinierte Rollen",
+
+    "setColorMissingColor": "%1$s, Sie müssen eine Farbe angeben. Sie können einen Farbcode unter https://www.hexcolortool.com/ besorgen - Sie möchten der Code, der mit # beginnt.",
+    "setColorBadColor": "%1$s, ich verstehe nicht, welche Farbe Sie mit `%2$s` meinen. Sie können einen Farbcode unter https://www.hexcolortool.com/ besorgen - Sie möchten der Code, der mit # beginnt.",
+    "setColorBadUser": "%1$s, ich verstehe nicht, wem ich abändern soll, weil ich nicht verstehe, wem `%2$s` bezieht sich auf. Wenn Sie nur Ihre Farbe ändern wollen, müssen Sie kein Benutzer angeben, sondern nur eine Farbe.",
+    "setColorSuccess": "Der User %1$s hat jetzt die Farbe `%2$s`.",
+
+    "clearColorBadUser": "%1$s, ich kann die Farbe von `%2$s` nicht löschen, weil ich nicht verstehe, wem das bezieht sich auf. ",
+    "clearColorSuccess": "Die Farbe von %1$s wird gelöscht.",
+    "clearColorNoColors": "Ich kann die Farbe von %1$s nicht löschen, weil er/sie keine hat!",
+
+    "setPrefixMissingPrefix": "%1$s, Sie müssen das Präfix, das Sie benutzen möchten, angeben.",
+    "setPrefixSuccess": "%1$s hat das Präfix für diesen Server von %2$s zu %3$s aktualisiert.",
+
+    "clearCommandSyntax": "%1$s, wenn Sie den Befehl \"Chat löschen\" benutzt, müssen Sie einen User, für den Nachrichten gelöscht werden sollen, oder die Anzahl der zu löschenden Nachrichten angeben. Sie können auch nichts angeben, in welchem Falle werden die letzte %2$d Nachrichten gelöscht.",
+    "clearCommandComplete": "%1$s, ich habe %2$d Nachrichten von diesem Kanal gelöscht.",
+
+    "setLocaleMissingLocale": "%1$s, Sie müssen angeben, welche Sprache, auf die Sie den Server einstellen möchten. Die verfügbaren Sprachen sind: ```%2$s```",
+    "setLocaleUnknownLocale": "%1$s, ich verstehe nicht, welche Sprache Sie mit `%2$s` meinen.",
+    "languageUpdated": "%1$s hat die Serversprache von `%2$s` zu `%3$s` aktualisiert.",
+
+    "getRoleMissingRoleName": "%1$s, Sie müssen angeben, welche Rolle Sie erhalten / verlieren möchten.",
+    "getRoleUnknownRole": "%1$s, ich verstehe nicht, welche Rolle sie mit `%2$s` meinen.",
+    "getRoleRoleDisappeared": "%1$s, die mit dem Namen `%2$s` verknüpfte Rolle wurde gelöscht, also kann ich es Ihnen nicht geben. Bitten Sie einen Administrator dieses Servers, das zu beheben.",
+    "getRoleAdded": "%1$s, Sie haben jetzt die Rolle `%2$s`.",
+    "getRoleRemoved": "%1$s, Sie haben **nicht mehr** die Rolle `%2$s`."
 }
