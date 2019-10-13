@@ -1,6 +1,15 @@
 {
     "name": "Español (España)",
     "englishName": "Spanish (Spain)",
+
     "moduleDisabled": "⛔ Lo siento, %s, pero el módulo `%s` está desactivado en este servidor, ¡entonces no puedes hacer esta acción! ⛔",
-    "missingPermission": "⛔ Lo siento, %s, ¡pero no tienes permiso para hacerlo! ⛔"
+    "missingPermission": "⛔ Lo siento, %s, ¡pero no tienes permiso para hacerlo! ⛔",
+    "botMissingPermission": "¡UH oh! Parece que no he sido configurado correctamente así que no puedo hacer eso. Por favor contacte a un administrador.",
+    "exceptionExecutingCommand": "Algo ha salido mal. Por favor, inténtelo de nuevo más tarde, o contacte al desarrollador en https://discord.gg/3SqMvgF",
+
+    "moduleNameCustomColors": "colores personalizados",
+    "moduleNameCustomRoles": "roles personalizados",
+
+    "setColorMissingColor": "%1$s, necesitas especificar un codigo de color. Para obtener un codigo de color puedes visitar https://www.hexcolortool.com/. Asegurate que elegir el codigo que comienza con un #",
+    "setColorBadColor": "%1$s, no sé a qué color te refieres con `%2$s`. Puedes obtener un codigo de color visitando https://www.hexcolortool.com/. Asegurate que elegir el codigo que comienza con un #"
 }
