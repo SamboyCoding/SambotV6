@@ -17,14 +17,13 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.lang.System.getenv
 import java.util.*
-import kotlin.collections.HashMap
 
 class SambotV6 {
     lateinit var token: String
     lateinit var jda: JDA
     lateinit var db: Database
 
-    val locales: TreeMap<String, HashMap<String, String>> = TreeMap()
+    val locales: TreeMap<String, TreeMap<String, String>> = TreeMap()
 
     fun init(token: String) {
         this.token = token
@@ -33,7 +32,7 @@ class SambotV6 {
 
         manager.on<ReadyEvent>()
             .next()
-            .subscribe { this.onReady() }
+            .subscribe (this::onReady)
 
         manager.on<MessageReceivedEvent>()
             .subscribe(CommandHandler::handleEvent)
@@ -56,8 +55,9 @@ class SambotV6 {
         dbLogger.info("Connected!")
     }
 
-    private fun onReady() {
-        botLogger.info("Ready!")
+    private fun onReady(e: ReadyEvent) {
+        botLogger.info("Ready! I'm in ${e.guildTotalCount} guilds, of which ${e.guildUnavailableCount} are not available")
+        botLogger.info(jda.guilds.joinToString(",") { "\"${it.id}\"" })
 
         //Load locales
         val gson = GsonBuilder().setLenient().create()
@@ -70,8 +70,8 @@ class SambotV6 {
                 val content = BufferedReader(InputStreamReader(it!!)).readText()
 
                 @Suppress("UNCHECKED_CAST")
-                val map: HashMap<String, String> =
-                    gson.fromJson(content, HashMap::class.java) as HashMap<String, String>
+                val map: TreeMap<String, String> =
+                    gson.fromJson(content, TreeMap::class.java) as TreeMap<String, String>
 
                 val localeName = fileName.removeSuffix(".json")
                 locales[localeName] = map

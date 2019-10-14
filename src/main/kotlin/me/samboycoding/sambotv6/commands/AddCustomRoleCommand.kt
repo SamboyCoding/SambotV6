@@ -39,7 +39,7 @@ class AddCustomRoleCommand : BaseCommand() {
         val tag = data.getArg(0)!!
 
         //Check the tag isn't taken
-        if(CustomRoles.findOne { (it.guild eq guild.id) and (it.roleId eq tag) } != null) {
+        if(CustomRoles.findOne { (it.guild eq guild.id) and (it.id eq tag) } != null) {
             msg.delete().submit()
             return channel.doSend(getString("addCustomRoleTagTaken", author.asMention, tag))
         }

@@ -32,6 +32,13 @@
     "setCLocaleMissingLocale": "%1$s, necesitas especificar un idioma para este canal. Los idiomas disponibles son: ```%3$s```",
     "cLanguageUpdated": "%1$s actualizado el idioma para este canal de `%2$s` a `%3$s`",
 
-    "getRoleMissingRoleName": "%1$s, necesitas especificar el rol que quieres ganar/perder",
-    "getRoleUnknownRole": "%1$s, no sé a qué rol te refieres con `%2$s`"
+    "getRoleMissingRoleName": "%1$s, necesitas especificar el 'Tag' del rol que quieres ganar/perder",
+    "getRoleUnknownRole": "%1$s, no sé a qué rol te refieres con `%2$s`",
+    "getRoleRoleDisappeared": "%1$s, el rol asociado con esta 'Tag' está perdido así que no te puedo dar. Por favor contacte a un administrador.",
+    "getRoleAdded": "%1$s, ahora tienes el rol `%2$s`",
+    "getRoleRemoved": "%1$s, ya **no tienes** el rol `%2$s`",
+
+    "addCustomRoleMissingArgs": "%1$s, para crear un rol personalizado, necesitas especificar un 'Tag' (que no puede contener espacios), y ya sea un nombre (que puede contener espacios) del rol que quieres crear o una mención del rol que quieres usar.",
+    "addCustomRoleTagTaken": "%1$s, el 'Tag' `%2$s` esta en uso, así que no puedes crear un otro rol con esta 'Tag'",
+    "addCustomRoleSuccess": "%1$s, el rol personalizado ha sido creado y asociado con el rol `%2$s`. Ahora, los usuarios pueden escribir `%3$srole %4$s` para obtenerlo."
 }

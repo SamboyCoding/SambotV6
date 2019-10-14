@@ -27,7 +27,7 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.17")
 
     //GSON
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson:2.8.6")
 }
 
 tasks.withType<KotlinCompile> {

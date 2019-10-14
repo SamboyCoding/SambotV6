@@ -20,8 +20,14 @@ object GuildConfigurations : Table<GuildConfiguration>("GuildConfig") {
     val locale by varchar("LOCALE").bindTo { it.locale } //VARCHAR(4)
 
     fun makeDefault(guild: Guild): GuildConfiguration {
+        SambotV6.dbLogger.info("Creating default config for guild ${guild.name}/${guild.id}")
+
+        return makeDefault(guild.id)
+    }
+
+    fun makeDefault(guildId: String): GuildConfiguration {
         val newCfg = GuildConfiguration {
-            id = guild.id
+            id = guildId
             colorsEnabled = false
             customRolesEnabled = false
             prefix = "?"
@@ -31,8 +37,6 @@ object GuildConfigurations : Table<GuildConfiguration>("GuildConfig") {
             joinRoles = null
             locale = "en"
         }
-
-        SambotV6.dbLogger.info("Creating default config for guild ${guild.name}/${guild.id}")
 
         add(newCfg)
         return newCfg
