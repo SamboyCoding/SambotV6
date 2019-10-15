@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.50"
+    id("com.github.johnrengelman.shadow") version("5.1.0")
 }
 
 group = "me.samboycoding"
@@ -28,6 +29,9 @@ dependencies {
 
     //GSON
     implementation("com.google.code.gson:gson:2.8.6")
+
+    //Reflections
+    implementation("org.reflections:reflections:0.9.11")
 }
 
 tasks.withType<KotlinCompile> {

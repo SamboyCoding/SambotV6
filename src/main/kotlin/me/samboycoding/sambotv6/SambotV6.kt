@@ -14,6 +14,8 @@ import net.dv8tion.jda.api.events.ShutdownEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import org.reflections.Reflections
+import org.reflections.scanners.ResourcesScanner
 import org.slf4j.Logger
 import org.slf4j.simple.SimpleLoggerFactory
 import java.io.BufferedReader
@@ -22,6 +24,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.lang.System.getenv
 import java.util.*
+import kotlin.system.exitProcess
 
 class SambotV6 {
     lateinit var token: String
@@ -111,20 +114,26 @@ class SambotV6 {
         val gson = GsonBuilder().setLenient().create()
 
         botLogger.info("Loading locales...")
-        getResourceFiles("i18n/").forEach { fileName ->
+        val reflections = Reflections("i18n", ResourcesScanner())
+        reflections.getResources { true }.forEach { fileName ->
             botLogger.info("Found lang file $fileName, reading...")
 
-            getResourceAsStream("i18n/$fileName").use {
+            getResourceAsStream(fileName).use {
                 val content = BufferedReader(InputStreamReader(it!!)).readText()
 
                 @Suppress("UNCHECKED_CAST")
                 val map: TreeMap<String, String> =
                     gson.fromJson(content, TreeMap::class.java) as TreeMap<String, String>
 
-                val localeName = fileName.removeSuffix(".json")
+                val localeName = fileName.removePrefix("i18n/").removeSuffix(".json")
                 locales[localeName] = map
                 botLogger.info("Loaded ${map.size} translations for language $localeName")
             }
+        }
+
+        if(locales.isEmpty()) {
+            botLogger.error("Failed to load locales")
+            exitProcess(1)
         }
 
         val en = locales["en"]!!
@@ -148,14 +157,13 @@ class SambotV6 {
     }
 
     @Throws(IOException::class)
-    fun getResourceFiles(path: String): List<String> = getResourceAsStream(path).use {
-        return if (it == null) emptyList()
-        else BufferedReader(InputStreamReader(it)).readLines()
-    }
+    fun getResourceFiles(path: String): List<String> = getResourceAsStream(path)?.use {
+        return BufferedReader(InputStreamReader(it)).readLines()
+    } ?: emptyList()
 
     private fun getResourceAsStream(resource: String): InputStream? =
         Thread.currentThread().contextClassLoader.getResourceAsStream(resource)
-            ?: resource::class.java.getResourceAsStream(resource)
+            ?: this::class.java.getResourceAsStream(resource)
 
     companion object {
         val botLogger: Logger = SimpleLoggerFactory().getLogger("Bot")
