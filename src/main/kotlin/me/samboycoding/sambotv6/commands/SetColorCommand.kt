@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.exceptions.HierarchyException
 import java.awt.Color
 
 class SetColorCommand : BaseCommand() {
@@ -65,7 +66,14 @@ class SetColorCommand : BaseCommand() {
 
         //Remove any pre-existing roles
         val presentRoles = target.roles.filter { r -> r.name.startsWith("#") }
-        presentRoles.forEach { r -> guild.removeRoleFromMember(target, r).queue() }
+        presentRoles.forEach { r ->
+            try {
+                guild.removeRoleFromMember(target, r).queue()
+            } catch(e: HierarchyException) {
+                channel.doSend(getString("setColorHierarchy", author.asMention, r.name))
+                return@execute
+            }
+        }
 
         //Give the user the role
         guild.addRoleToMember(target, role!!).queue()
