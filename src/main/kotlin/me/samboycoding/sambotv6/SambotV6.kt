@@ -4,10 +4,15 @@ import club.minnced.jda.reactor.ReactiveEventManager
 import club.minnced.jda.reactor.on
 import com.google.gson.GsonBuilder
 import me.liuwj.ktorm.database.Database
+import me.liuwj.ktorm.dsl.eq
+import me.liuwj.ktorm.entity.findOne
+import me.samboycoding.sambotv6.orm.tables.GuildConfigurations
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.events.ReadyEvent
 import net.dv8tion.jda.api.events.ShutdownEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import org.slf4j.Logger
 import org.slf4j.simple.SimpleLoggerFactory
@@ -25,6 +30,10 @@ class SambotV6 {
 
     val locales: TreeMap<String, TreeMap<String, String>> = TreeMap()
 
+    private val joinLeaveMentionRegex = "(?<!<)@".toRegex()
+    private val joinLeaveNameRegex = "(?<!<)%".toRegex()
+    private val joinLeaveCountRegex = "(?<!<)\\*".toRegex()
+
     fun init(token: String) {
         this.token = token
 
@@ -32,10 +41,49 @@ class SambotV6 {
 
         manager.on<ReadyEvent>()
             .next()
-            .subscribe (this::onReady)
+            .subscribe(this::onReady)
 
         manager.on<MessageReceivedEvent>()
             .subscribe(CommandHandler::handleEvent)
+
+        manager.on<GuildMemberJoinEvent>()
+            .subscribe { event ->
+                val guild = event.guild
+                val user = event.member
+
+                //Get config
+                val config = GuildConfigurations.findOne { it.id eq guild.id } ?: return@subscribe
+
+                //Handle join roles
+                config.joinRoles?.forEach { guild.addRoleToMember(user, it).submit() }
+
+                //Handle join messages
+                if (config.joinMessage.isNotEmpty())
+                    config.joinChannel?.sendMessage(
+                        config.joinMessage
+                            .replace(joinLeaveMentionRegex, user.asMention)
+                            .replace(joinLeaveNameRegex, user.effectiveName)
+                            .replace(joinLeaveCountRegex, guild.members.size.toString())
+                    )?.submit()
+            }
+
+        manager.on<GuildMemberLeaveEvent>()
+            .subscribe {event ->
+                val guild = event.guild
+                val user = event.member
+
+                //Get config
+                val config = GuildConfigurations.findOne { it.id eq guild.id } ?: return@subscribe
+
+                //Handle join messages
+                if (config.leaveMessage.isNotEmpty())
+                    config.joinChannel?.sendMessage(
+                        config.leaveMessage
+                            .replace(joinLeaveMentionRegex, user.asMention)
+                            .replace(joinLeaveNameRegex, user.effectiveName)
+                            .replace(joinLeaveCountRegex, guild.members.size.toString())
+                    )?.submit()
+            }
 
         manager.on<ShutdownEvent>()
             .subscribe { botLogger.info("Shutting down...") }

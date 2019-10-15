@@ -10,6 +10,9 @@ object CommandHandler {
     val commands = arrayListOf(
         //Prefix
         SetPrefixCommand(),
+        //Channel, module
+        ChannelCommand(),
+        ModuleCommand(),
         //Color
         SetColorCommand(),
         ClearColorCommand(),
