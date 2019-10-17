@@ -13,10 +13,10 @@
     "setColorMissingColor": "%1$s, necesitas especificar un codigo de color. Para obtener un codigo de color puedes visitar https://www.hexcolortool.com/. Asegurate que elegir el codigo que comienza con un #",
     "setColorBadColor": "%1$s, no sé a qué color te refieres con `%2$s`. Puedes obtener un codigo de color visitando https://www.hexcolortool.com/. Asegurate que elegir el codigo que comienza con un #",
     "setColorBadUser": "%1$s, no sé a quien te refieres con `%2$s`. Si solo quieres cambiar tu propio color, no tienes que especificar un nombre.",
-    "setColorSuccess": "¡Éxito! El usuario `%1$s` ahora tiene el color `%2$s`",
+    "setColorSuccess": "¡Éxito! El usuario %1$s ahora tiene el color `%2$s`",
 
     "clearColorBadUser": "%1$s, no sé a quien te refieres con `%2$s`, así que no puedo eliminar su color.",
-    "clearColorSuccess": "¡Éxito! El usuario `%1$s1 ya no tiene color.",
+    "clearColorSuccess": "¡Éxito! El usuario %1$s ya no tiene color.",
     "clearColorNoColors": "¡No puedo eliminar el color de `%1$s` por que no tiene uno!",
 
     "setPrefixMissingPrefix": "%1$s, tienes que especificar el prefijo que quieres utilizar.",
