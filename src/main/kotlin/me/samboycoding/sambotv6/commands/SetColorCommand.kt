@@ -8,7 +8,9 @@ import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.exceptions.ErrorResponseException
 import net.dv8tion.jda.api.exceptions.HierarchyException
+import net.dv8tion.jda.api.requests.ErrorResponse
 import java.awt.Color
 
 class SetColorCommand : BaseCommand() {
@@ -49,20 +51,31 @@ class SetColorCommand : BaseCommand() {
         var roleName = match.value.toUpperCase()
         if (!roleName.startsWith("#")) roleName = "#$roleName"
 
+        println("Looking for a role with name $roleName")
+
         //Check if the role already exists
         var role = guild.roles.find { r -> r.name == roleName }
 
         if (role == null) {
+            println("No role found, creating a new one.")
             //Need to create
-            role = guild.createRole()
-                .setColor(matchToColor(match))
-                .setName(roleName)
-                .setMentionable(false)
-                .setHoisted(false)
-                .setPermissions(0)
-                .submit()
-                .get()
-        }
+            try {
+                role = guild.createRole()
+                        .setColor(matchToColor(match))
+                        .setName(roleName)
+                        .setMentionable(false)
+                        .setHoisted(false)
+                        .setPermissions(0)
+                        .submit()
+                        .get()
+            } catch(ere: ErrorResponseException) {
+                val message = when(ere.errorResponse) {
+                    ErrorResponse.MAX_ROLES_PER_GUILD -> getString("setColorNoRolesLeft", msg.author.asMention)
+                    else -> getString("exceptionExecutingCommand")
+                }
+            }
+        } else
+            println("Existing colour found, using role with ID ${role.id}")
 
         //Remove any pre-existing roles
         val presentRoles = target.roles.filter { r -> r.name.startsWith("#") }

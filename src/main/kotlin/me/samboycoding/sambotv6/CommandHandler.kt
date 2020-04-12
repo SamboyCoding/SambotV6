@@ -16,6 +16,7 @@ object CommandHandler {
         //Color
         SetColorCommand(),
         ClearColorCommand(),
+        CleanColorsCommand(),
         //Util
         ClearCommand(),
         //Music
