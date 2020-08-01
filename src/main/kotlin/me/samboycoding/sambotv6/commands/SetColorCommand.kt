@@ -76,6 +76,7 @@ class SetColorCommand : BaseCommand() {
                         else -> getString("exceptionExecutingCommand")
                     }
                 }
+                return //Do not attempt to continue
             }
         } else
             println("Existing colour found, using role with ID ${role.id}")
