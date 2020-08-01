@@ -90,7 +90,7 @@ class SambotV6 {
             .subscribe { botLogger.info("Shutting down...") }
 
         botLogger.info("Logging in to discord...")
-        jda = JDABuilder.create(token, arrayListOf(GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_PRESENCES))
+        jda = JDABuilder.create(token, arrayListOf(GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS))
             .setEventManager(manager)
             .build()
 
