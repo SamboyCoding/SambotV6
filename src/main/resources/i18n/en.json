@@ -13,7 +13,7 @@
     "setColorMissingColor": "%1$s, you need to specify a color. You can get a color code from https://www.hexcolortool.com/ - you want the code beginning with a #",
     "setColorBadColor": "%1$s, I don't know what color you mean by `%2$s`. You can get a color code from https://www.hexcolortool.com/ - you want the code beginning with a #",
     "setColorBadUser": "%1$s, I don't know who to modify, because I don't know who `%2$s` refers to. If you just want to change your own color, you don't need to specify a user, just a color.",
-    "setColorNoRolesLeft": "%1$s, I can't do that because this server has run out of room for new roles, and one with that colour doesn't already exist. You could try running ",
+    "setColorNoRolesLeft": "%1$s, I can't do that because this server has run out of room for new roles, and one with that colour doesn't already exist. You could try running the `cleancolors` command (or getting a moderator to do so) to free up some roles",
     "setColorHierarchy": "%1$s, I can't do that because the target user already has a color role, %2$s, which is above all of my roles, and so I can't remove it.",
     "setColorSuccess": "Success! The user %1$s now has the color `%2$s`",
 
