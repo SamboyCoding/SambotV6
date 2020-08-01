@@ -34,7 +34,7 @@
 //        val legacy = gson.fromJson<LegacyGuildConfig>(json, LegacyGuildConfig::class.java)
 //
 //
-//        val cfg = GuildConfigurations.findOne { it.id eq guildId } ?: GuildConfigurations.makeDefault(guildId)
+//        val cfg = SambotV6.instance.db.guildConfigurations.find { it.id eq guildId } ?: GuildConfigurations.makeDefault(guildId)
 //
 //        cfg.prefix = legacy.general.prefix
 //

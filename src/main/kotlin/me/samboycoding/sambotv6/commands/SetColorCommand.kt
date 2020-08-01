@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.exceptions.ErrorResponseException
 import net.dv8tion.jda.api.exceptions.HierarchyException
 import net.dv8tion.jda.api.requests.ErrorResponse
 import java.awt.Color
+import java.util.concurrent.ExecutionException
 
 class SetColorCommand : BaseCommand() {
     override fun execute(msg: Message, author: Member, guild: Guild, channel: TextChannel, config: GuildConfiguration) {
@@ -68,10 +69,12 @@ class SetColorCommand : BaseCommand() {
                         .setPermissions(0)
                         .submit()
                         .get()
-            } catch(ere: ErrorResponseException) {
-                val message = when(ere.errorResponse) {
-                    ErrorResponse.MAX_ROLES_PER_GUILD -> getString("setColorNoRolesLeft", msg.author.asMention)
-                    else -> getString("exceptionExecutingCommand")
+            } catch(ere: ExecutionException) {
+                if(ere.cause is ErrorResponseException) {
+                    val message = when ((ere.cause as ErrorResponseException).errorResponse) {
+                        ErrorResponse.MAX_ROLES_PER_GUILD -> getString("setColorNoRolesLeft", msg.author.asMention)
+                        else -> getString("exceptionExecutingCommand")
+                    }
                 }
             }
         } else

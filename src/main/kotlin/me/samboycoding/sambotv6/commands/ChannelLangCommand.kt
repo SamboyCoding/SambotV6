@@ -1,8 +1,9 @@
 package me.samboycoding.sambotv6.commands
 
 import me.liuwj.ktorm.dsl.eq
-import me.liuwj.ktorm.entity.findOne
+import me.liuwj.ktorm.entity.find
 import me.samboycoding.sambotv6.SambotV6
+import me.samboycoding.sambotv6.channelLocales
 import me.samboycoding.sambotv6.getCommandData
 import me.samboycoding.sambotv6.isModerator
 import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
@@ -20,7 +21,7 @@ class ChannelLangCommand : BaseCommand() {
 
         val data = msg.getCommandData(config)
 
-        val existingOverride = ChannelLocales.findOne { it.id eq channel.id }
+        val existingOverride = SambotV6.instance.db.channelLocales.find { it.id eq channel.id }
 
         val currentLocale = existingOverride?.locale ?: config.locale
 

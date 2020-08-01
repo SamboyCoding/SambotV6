@@ -1,7 +1,7 @@
 package me.samboycoding.sambotv6
 
 import me.liuwj.ktorm.dsl.eq
-import me.liuwj.ktorm.entity.findOne
+import me.liuwj.ktorm.entity.find
 import me.samboycoding.sambotv6.commands.*
 import me.samboycoding.sambotv6.orm.tables.GuildConfigurations
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
@@ -33,7 +33,7 @@ object CommandHandler {
     fun handleEvent(event: MessageReceivedEvent) {
         val msg = event.message
         val guild = msg.guild
-        val config = GuildConfigurations.findOne { it.id eq guild.id } ?: GuildConfigurations.makeDefault(guild)
+        val config = SambotV6.instance.db.guildConfigurations.find { it.id eq guild.id } ?: GuildConfigurations.makeDefault(guild)
 
         if(!msg.contentRaw.startsWith(config.prefix)) return
 

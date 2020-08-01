@@ -1,11 +1,11 @@
 package me.samboycoding.sambotv6.commands
 
 import me.liuwj.ktorm.dsl.eq
-import me.liuwj.ktorm.entity.findOne
+import me.liuwj.ktorm.entity.find
 import me.samboycoding.sambotv6.SambotV6
+import me.samboycoding.sambotv6.channelLocales
 import me.samboycoding.sambotv6.getCommandData
 import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
-import me.samboycoding.sambotv6.orm.tables.ChannelLocales
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.*
 
@@ -39,7 +39,7 @@ abstract class BaseCommand {
 
     fun getString(key: String): String {
         //Channel override if exists else guild config locale
-        val localeId = ChannelLocales.findOne { it.id eq context.message.channel.id }?.locale ?: config.locale
+        val localeId = SambotV6.instance.db.channelLocales.find { it.id eq context.message.channel.id }?.locale ?: config.locale
 
         return SambotV6.instance.locales[localeId]?.get(key)
             ?: SambotV6.instance.locales["en"]!![key]

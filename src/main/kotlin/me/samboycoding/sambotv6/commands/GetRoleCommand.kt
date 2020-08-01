@@ -1,10 +1,11 @@
 package me.samboycoding.sambotv6.commands
 
 import me.liuwj.ktorm.dsl.eq
-import me.liuwj.ktorm.entity.findOne
+import me.liuwj.ktorm.entity.find
+import me.samboycoding.sambotv6.SambotV6
+import me.samboycoding.sambotv6.customRoles
 import me.samboycoding.sambotv6.getCommandData
 import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
-import me.samboycoding.sambotv6.orm.tables.CustomRoles
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
@@ -31,7 +32,7 @@ class GetRoleCommand : BaseCommand() {
         val roleName = data.getArg(0)!!.toLowerCase()
 
         //Lookup in DB or bailout
-        val customRole = CustomRoles.findOne { it.id eq roleName }
+        val customRole = SambotV6.instance.db.customRoles.find { it.id eq roleName }
             ?: return channel.doSend(getString("getRoleUnknownRole", author.asMention, roleName))
 
         //Ensure the actual role exists or bailout

@@ -2,7 +2,9 @@ package me.samboycoding.sambotv6.commands
 
 import me.liuwj.ktorm.dsl.and
 import me.liuwj.ktorm.dsl.eq
-import me.liuwj.ktorm.entity.findOne
+import me.liuwj.ktorm.entity.find
+import me.samboycoding.sambotv6.SambotV6
+import me.samboycoding.sambotv6.customRoles
 import me.samboycoding.sambotv6.getCommandData
 import me.samboycoding.sambotv6.isModerator
 import me.samboycoding.sambotv6.orm.entities.GuildConfiguration
@@ -39,7 +41,7 @@ class AddCustomRoleCommand : BaseCommand() {
         val tag = data.getArg(0)!!
 
         //Check the tag isn't taken
-        if(CustomRoles.findOne { (it.guild eq guild.id) and (it.id eq tag) } != null) {
+        if(SambotV6.instance.db.customRoles.find { (it.guild eq guild.id) and (it.id eq tag) } != null) {
             msg.delete().submit()
             return channel.doSend(getString("addCustomRoleTagTaken", author.asMention, tag))
         }

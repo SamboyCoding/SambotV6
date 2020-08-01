@@ -2,9 +2,10 @@ package me.samboycoding.sambotv6.orm.entities
 
 import me.liuwj.ktorm.dsl.eq
 import me.liuwj.ktorm.entity.Entity
-import me.liuwj.ktorm.entity.findList
+import me.liuwj.ktorm.entity.filter
+import me.liuwj.ktorm.entity.toList
 import me.samboycoding.sambotv6.SambotV6
-import me.samboycoding.sambotv6.orm.tables.CustomRoles
+import me.samboycoding.sambotv6.customRoles
 
 interface GuildConfiguration : Entity<GuildConfiguration> {
     companion object : Entity.Factory<GuildConfiguration>()
@@ -34,5 +35,5 @@ interface GuildConfiguration : Entity<GuildConfiguration> {
         }
 
     val customRoles
-        get() = CustomRoles.findList { it.guild eq id }
+        get() = SambotV6.instance.db.customRoles.filter { it.guild eq id }.toList()
 }

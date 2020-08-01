@@ -5,21 +5,20 @@ import club.minnced.jda.reactor.on
 import com.google.gson.GsonBuilder
 import me.liuwj.ktorm.database.Database
 import me.liuwj.ktorm.dsl.eq
-import me.liuwj.ktorm.entity.findOne
-import me.samboycoding.sambotv6.orm.tables.GuildConfigurations
+import me.liuwj.ktorm.entity.find
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.events.ReadyEvent
 import net.dv8tion.jda.api.events.ShutdownEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
-import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.requests.GatewayIntent
 import org.reflections.Reflections
 import org.reflections.scanners.ResourcesScanner
 import org.slf4j.Logger
 import org.slf4j.simple.SimpleLoggerFactory
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.lang.System.getenv
@@ -27,7 +26,7 @@ import java.util.*
 import kotlin.system.exitProcess
 
 class SambotV6 {
-    lateinit var token: String
+    private lateinit var token: String
     lateinit var jda: JDA
     lateinit var db: Database
 
@@ -55,7 +54,7 @@ class SambotV6 {
                 val user = event.member
 
                 //Get config
-                val config = GuildConfigurations.findOne { it.id eq guild.id } ?: return@subscribe
+                val config = db.guildConfigurations.find { it.id eq guild.id } ?: return@subscribe
 
                 //Handle join roles
                 config.joinRoles?.forEach { guild.addRoleToMember(user, it).submit() }
@@ -70,20 +69,19 @@ class SambotV6 {
                     )?.submit()
             }
 
-        manager.on<GuildMemberLeaveEvent>()
+        manager.on<GuildMemberRemoveEvent>()
             .subscribe {event ->
                 val guild = event.guild
-                val user = event.member
 
                 //Get config
-                val config = GuildConfigurations.findOne { it.id eq guild.id } ?: return@subscribe
+                val config = db.guildConfigurations.find { it.id eq guild.id } ?: return@subscribe
 
                 //Handle join messages
                 if (config.leaveMessage.isNotEmpty())
                     config.joinChannel?.sendMessage(
                         config.leaveMessage
-                            .replace(joinLeaveMentionRegex, user.asMention)
-                            .replace(joinLeaveNameRegex, user.effectiveName)
+                            .replace(joinLeaveMentionRegex, event.user.asMention)
+                            .replace(joinLeaveNameRegex, event.member?.effectiveName ?: event.user.name)
                             .replace(joinLeaveCountRegex, guild.members.size.toString())
                     )?.submit()
             }
@@ -92,7 +90,7 @@ class SambotV6 {
             .subscribe { botLogger.info("Shutting down...") }
 
         botLogger.info("Logging in to discord...")
-        jda = JDABuilder(token)
+        jda = JDABuilder.create(token, arrayListOf(GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_PRESENCES))
             .setEventManager(manager)
             .build()
 
@@ -155,11 +153,6 @@ class SambotV6 {
 
         botLogger.info("There are ${CommandHandler.commands.count()} commands.")
     }
-
-    @Throws(IOException::class)
-    fun getResourceFiles(path: String): List<String> = getResourceAsStream(path)?.use {
-        return BufferedReader(InputStreamReader(it)).readLines()
-    } ?: emptyList()
 
     private fun getResourceAsStream(resource: String): InputStream? =
         Thread.currentThread().contextClassLoader.getResourceAsStream(resource)
