@@ -75,6 +75,8 @@ class SetColorCommand : BaseCommand() {
                         ErrorResponse.MAX_ROLES_PER_GUILD -> getString("setColorNoRolesLeft", msg.author.asMention)
                         else -> getString("exceptionExecutingCommand")
                     }
+
+                    channel.doSend(message)
                 }
                 return //Do not attempt to continue
             }
